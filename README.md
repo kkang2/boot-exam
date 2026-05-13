@@ -19,3 +19,5 @@ Vue 3와 스프링 부트로 시작하는 웹 개발 철저 입문 : 스프링 �
 모던 자바스크립트 핵심 가이드 : 자바스크립트 기초부터 타임스크립트, ES2021까지 핵심만 쏙쏙
 
 https://rebeccacho.gitbooks.io/java-study-group/content/chapter12.html
+
+https://item.gmarket.co.kr/Item?goodscode=4689768405
