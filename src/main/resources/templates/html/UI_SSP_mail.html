@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<script>
+
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이메일폼</title>
+</head>
+<body>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'SamsungOneKorean'; color: #444;}
+        table {border-collapse: collapse;}
+        .bg_txt {font-family: 'Samsung Sharp Sans'; position: absolute; right: 0; top: 25px; font-size: 13px; font-weight: 500; letter-spacing: 0.025em; color: #ff5858; user-select:none}
+        .box {position: relative; padding: 18px 20px 25px; background-color: #f9f9f9; border-radius: 10px;}
+        .box .txt {line-height: 1.7; font-size: 14px; color: #6a7086;}
+        .bullet {position: relative; padding-left: 9px; margin-top: 10px; font-size: 13px; color: #999;}
+        .bullet::before {position: absolute; content: ''; left: 0; top: 8px; width: 3px; height: 3px; background-color: #999; border-radius: 50%;}
+        .ttl {padding-bottom: 7px; font-size: 20px; font-weight: 600; letter-spacing: -0.025em; text-align: left;}
+        .tbl {width: 100%; table-layout: fixed;}
+        .tbl.center {text-align: center;}
+        .tbl tr {border-bottom: 1px solid #e0e2e6;}
+        .tbl th {height: 43px; padding: 5px; background-color: #f1f3fb; font-size: 14px; font-weight: 700; color: #737990;}
+        .tbl td {height: 43px;font-size: 14px; padding: 5px 34px;}
+        .tbl.center td {padding: 5px;}
+        .tbl thead th {height: 40px;}
+        .txt2 {text-align: center; font-size: 15px; font-weight: 600; letter-spacing: -0.025em;}
+        .txt2 em {color: #008ae8; font-style: normal;}
+        .copy {position: absolute; left: 32px; bottom: 30px; color: #999; font-family: 'Noto Sans CJK KR'; font-size: 12px; user-select:none}
+        .btn {display: inline-block; height: 38px; line-height: 38px; margin-top: 20px; padding: 0 16px; font-size: 15px; color: #fff; border-radius: 4px; background-color: #008ae8; text-decoration: none;}
+    </style>
+    <table style="position: relative; width: 984px;">
+        <tbody>
+            <tr>
+                <td style="padding: 0 32px 32px;">
+                    <table style="width: 100%;">
+                        <tbody>
+                            <tr>
+                                <td style="height: 74px; position: relative; padding-top: 22px; vertical-align: top;">
+                                    <img src="https://portal.dscloud.samsungds.net/img/ico_logo.d055ef92.png" alt="DS CLOUD">
+                                    <span class="bg_txt">Confidential</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height: 30px;"></td>
+                            </tr>
+                            <tr>
+                                <th class="ttl">신청 기본 정보</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class="tbl" style="border-top: 2px solid #b5bcd4;">
+                                        <colgroup>
+                                            <col style="width: 150px;">
+                                            <col style="width: calc(50% - 150px);">
+                                            <col style="width: 150px;">
+                                            <col style="width: auto;">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th>신청 구분</th>
+                                                <td>##rqesterDiv</td>
+                                                <th>신청 일시</th>
+                                                <td>##updtDtm</td>
+                                            </tr>
+                                            <tr>
+                                                <th>신청자</th>
+                                                <td>##rqesterNm</td>
+			    					           	<th>신청자부서</th>
+                                                <td>##rqesterDeptCd</td>
+                                            </tr>
+                                            <tr>
+                                                <th>신청 제목</th>
+                                                <td colspan="3">##subject</td>
+                                            </tr>
+                                            <tr>
+                                                <th>프로젝트 명</th>
+                                                <td>##prjtNm</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height: 20px;"></td>
+                            </tr>
+                            <tr>
+                                <th class="ttl">신청 정보</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class="tbl center" style="border-top: 2px solid #b5bcd4;">
+                                        <thead>
+                                            <tr>
+                                                <th>VM 명</th>
+                                                <th>시작시간</th>
+                                                <th>Provider</th>
+                                                <th>Disk 정보</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+											##sbvmInfo
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+							##bkInfo
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
