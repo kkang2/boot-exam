@@ -25,3 +25,9 @@ https://item.gmarket.co.kr/Item?goodscode=4689768405
 https://item.gmarket.co.kr/Item?goodscode=2625086904
 
 https://wikidocs.net/book/19104
+
+모니터 자산관리 번호 : M001076
+모니터 시리얼 번호 : CN-0RCKX9-TV200-439-036V
+모델명 : 55CX0
+
+DS 노트북 자산관리 번호 : M000131
