@@ -26,8 +26,117 @@ https://item.gmarket.co.kr/Item?goodscode=2625086904
 
 https://wikidocs.net/book/19104
 
-모니터 자산관리 번호 : M001076
-모니터 시리얼 번호 : CN-0RCKX9-TV200-439-036V
-모델명 : 55CX0
+package com.psj.exam.template.thymeleaf.component;
 
-DS 노트북 자산관리 번호 : M000131 
+@Slf4j
+@Component
+@RequiredArgsConstructor
+public class ThymeleafEmailTemplate {
+	private final TemplateEngine htmlTemplate;
+	
+	/**
+	 * 이메일 템플릿(html)에 Thymeleaf를 사용해서 값을 치환 후 리턴합니다.
+	 * 
+	 * @param htmlFileNm 이메일 템플릿 명(.html 전까지)
+	 * @param paramMap 맵핑할 데이터 Map
+	 * @return 값이 맵핑된 html 컨텐츠 리턴
+	 */
+	public String makeEmailContents(String htmlFileNm, Map<String, Object> paramMap) {
+		Context ctx = new Context();
+		
+		for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
+			ctx.setVariable(entry.getKey(), entry.getValue());
+		}
+		
+		return htmlTemplate.process(htmlFileNm, ctx);
+	}
+}
+
+package com.psj.exam.template.thymeleaf.controller;
+
+@Slf4j
+@RequiredArgsConstructor
+@Controller
+@RequestMapping("/thymeleaf")
+public class ThymeleafController {
+	private final ThymeleafService thymeleafService;
+	
+	@PostMapping("/simple-template.do")
+	public ResponseEntity<?> simpleTemplate(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> paramMap) throws Exception {
+		return ResponseEntity.ok(thymeleafService.simpleTemplate(request, response, paramMap));
+	}
+}
+
+package com.psj.exam.template.thymeleaf.service;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ThymeleafService {
+	private final ThymeleafEmailTemplate template;
+	
+	/**
+	 * html 파일에 subject, content 값을 치환해서 반환합니다.
+	 * 
+	 * <p>Thymeleaf Template Engine을 사용합니다.</p>
+	 * @return 두 정수의 합
+	 */
+	public String simpleTemplate(HttpServletRequest request, HttpServletResponse response, Map<String, Object> paramMap) throws Exception {
+		return template.makeEmailContents(
+				"simple-template", 
+				Map.of("subject", paramMap.get("subject"), "content", paramMap.get("content"))
+		);
+	}
+}
+
+package com.psj.exam.template.thymeleaf;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@Slf4j
+public class ThymeleafControllerTest {
+	@Autowired
+    protected MockMvc mockMvc;
+
+    @Autowired
+    private WebApplicationContext context;
+    
+    @Autowired
+    private ObjectMapper objectMapper;
+    
+    @BeforeEach
+    public void mockMvcSetUp() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
+                .addFilters(new CharacterEncodingFilter("UTF-8", true))  // 필터 추가
+                .build();
+    }
+    
+    @DisplayName("html 파일에 subject, content 값을 치환해서 반환하는 메소드 테스트")
+    @Test
+    public void simpleTemplate() throws Exception {
+        final String url = "/thymeleaf/simple-template.do";
+        final String jsonContents = objectMapper.writeValueAsString(SimpleMailDto.builder().subject("제목 입니다.").content("내용 입니다.").build());
+        
+        log.info("jsonContents : {}", jsonContents);
+        
+        // when
+        final ResultActions resultActions = mockMvc.perform(post(url)
+        		.content(
+        			objectMapper.writeValueAsString(SimpleMailDto.builder().subject("제목 입니다.").content("내용 입니다.").build())
+        		)
+        		.contentType(MediaType.APPLICATION_JSON));
+        
+        String contents = resultActions.andReturn().getResponse().getContentAsString();
+        
+        log.info("result contents : {}", contents);
+    }
+}
+
+package com.psj.exam.template.thymeleaf.dto;
+
+@Builder
+@Data
+public class SimpleMailDto {
+	private String subject;
+	private String content;
+}
